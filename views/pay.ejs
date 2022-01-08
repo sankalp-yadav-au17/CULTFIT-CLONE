@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/pay.css">
+    <link rel="icon" href="https://static.cure.fit/assets/images/favicon-modified.png" sizes="16x16" type="image/png"
+        data-rh="true">
+    <title>cult.fit - Payment</title>
+    <link rel="stylesheet" href="./style/ArrowDropDown.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+    <script rel="preload" src="JsFiles/pay.js" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body onload="stopLoading()">
+    <div id="loading"></div>
+    <!-- navebar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/home">
+                <img src="https://static.cure.fit/assets/images/curefit-v-man.svg" alt="">
+            </a>
+        </div>
+        <div id="FitImgBox">
+            <a href="/store">
+                <img src="https://cdn-images.cure.fit/www-curefit-com/image/upload/image/header-web/store_fit.svg"
+                    class="imgMF">
+            </a>
+        </div>
+        <div id="downArrowBox" onclick="myFunction()">
+            <img src="https://static.cure.fit/assets/images/arrow-clp.svg" class="imgMF" id="imgMf">
+        </div>
+
+
+
+
+        <!-- login Section -->
+        <div class="login">
+
+            <div class="location">
+                <div class="dot"></div>
+                <div id="nameCity">location</div>
+            </div>
+            <div id="loginBox">
+                <img src="https://static.cure.fit/assets/images/user-image.svg" alt="">
+
+            </div>
+            <div id="addToCartBox">
+                <img src="https://static.cure.fit/assets/images/cart-image.svg" alt="">
+              <div id="quantity">0
+
+                  <!-- <%=  %> -->
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- navebar -->
+
+    <!-- Arrow drop down -->
+    <div class="popuptext" id="myPopup">
+        <div id="allImgs">
+            <div>
+                <a href="/onlinept">
+                    <img src="https://static.cure.fit/assets/images/cult-icon.svg" alt="" class="popImg1">
+                </a>
+
+                <div class="popText popText1 ">
+                    CULT
+                </div>
+            </div>
+            <div>
+                <a href="#">
+                    <img src="https://static.cure.fit/assets/images/Livefit.svg" alt="" class="popImg2">
+                </a>
+
+                <div class="popText popText2">
+                    LIVE
+                </div>
+            </div>
+            <div>
+                <a href="/eat">
+                    <img src="https://static.cure.fit/assets/images/eat-hover-icon.svg" alt="" class="popImg1">
+                </a>
+
+
+                <div class="popText popText3">
+                    EAT
+                </div>
+            </div>
+            <div>
+                <a href="/mindfulness">
+                    <img src="https://static.cure.fit/assets/images/mind-icon.svg" alt="" class="popImg1">
+                </a>
+
+                <div class="popText popText4">
+                    MIND
+                </div>
+            </div>
+            <div>
+                <a href="/care">
+                    <img src="https://static.cure.fit/assets/images/carefit-blk.svg" alt="" class="popImg1">
+                </a>
+
+                <div class="popText popText5">
+                    CARE
+                </div>
+            </div>
+            <div>
+                <a href="/store">
+                    <img src="https://static.cure.fit/assets/images/store-icon.svg" alt="" class="popImg2">
+                </a>
+
+                <div class="popText popText6">
+                    STORE
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Arrow drop down -->
+
+
+    <div id="top" >Cultgear Order Summary</div>
+    <div id="container">
+        <div id="left">
+           
+            <div id="items"></div>
+        </div>
+
+        <div id="right">
+            <div class="margin_left loc">Choose/Enter Location
+            </div>
+            <div>
+               <div id="location" class="material-icons">
+                    location_on
+                  </div>
+
+                <input id="location-btn" type="text"></input>       
+            </div>
+            <p id="error-loc" class="margin_left"></p>
+            <hr>
+            <!-- <div>
+                <span class="price">Quantity</span> <span class="margin_left price" id="quantity"><% 0 %></span>
+            </div> -->
+            <div>
+                <span class="price">Total Price</span> <span class="margin_left price" id="total_price">0</span>
+            </div>
+            <div>
+                <span class="price">(-)Discount</span> <span class="margin_left price" id="dis_price">0</span>
+            </div>
+            <div>
+                <input id="coupan_code" type="text" placeholder="Enter coupon code"></input> <button class="margin_left"
+                    id="Coupon-btn">Apply</button>
+            </div>
+            <p id="error"></p>
+            <div class="Total_payable">
+                <span>Total Payable</span> <span class="margin_left">₹</span><span class="price" id="pay_price">0</span>
+            </div>
+
+
+            <button id="CheckOut-btn" >CheckOut</button>
+       
+    </div>
+    </div>
+
+
+
+</body>
+<script>
+    let preloader = document.getElementById("loading")
+    function stopLoading() {
+        preloader.style.display = "none";
+    }
+
+
+    updateLocation()
+    function updateLocation() {
+        let Currentcity = JSON.parse(localStorage.getItem("currentcity"));
+        console.log('Currentcity:', Currentcity)
+
+        if (Currentcity === null) {
+            document.getElementById("nameCity").innerText = "location";
+        } else {
+
+            document.getElementById("nameCity").innerText = Currentcity;
+        }
+    }
+</script>
+
+</html>
